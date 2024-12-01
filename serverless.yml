@@ -1,0 +1,61 @@
+service: cg-test
+
+provider:
+    name: aws
+    # The AWS region in which to deploy (us-east-1 is the default)
+    region: us-east-1
+    # Environment variables
+    environment:
+        SESSION_DRIVER: cookie # Change to database if you have set up a database
+        AWS_BUCKET: jp1-cg-test
+        FRONT_APP_URL : http://cg-test-app.s3-website-us-east-1.amazonaws.com/
+        API_HOST : https://7e63qwx147.execute-api.us-east-1.amazonaws.com
+        APP_URL : https://7e63qwx147.execute-api.us-east-1.amazonaws.com
+        
+    iam:
+     role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:PutObject"
+            - "s3:GetObject"
+            - "s3:ListBucket"
+          Resource:
+            - "arn:aws:s3:::jp1-cg-test"
+            - "arn:aws:s3:::jp1-cg-test/*"
+    
+
+package:
+    # Files and directories to exclude from deployment
+    patterns:
+        - '!node_modules/**'
+        - '!public/storage'
+        - '!resources/assets/**'
+        - '!storage/**'
+        - '!tests/**'
+        - '!database/*.sqlite'
+
+functions:
+
+    # This function runs the Laravel website/API
+    web:
+        handler: public/index.php
+        runtime: php-83-fpm
+        timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
+        events:
+            - httpApi: '*'
+
+    # This function lets us run artisan commands in Lambda
+    artisan:
+        handler: artisan
+        runtime: php-83-console
+        timeout: 720 # in seconds
+        # Uncomment to also run the scheduler every minute
+        #events:
+        #    - schedule:
+        #          rate: rate(1 minute)
+        #          input: '"schedule:run"'
+
+plugins:
+    # We need to include the Bref plugin
+    - ./vendor/bref/bref
