@@ -9,8 +9,51 @@
 
 ## CG Test
 
-This is a test create.
+This project is a web-based application designed to manage albums and users. It features APIs for user authentication, album management, and password recovery. The backend is developed in Laravel, and the project includes database migrations, aws-sdk, serverless deployment and a Mail service for user notifications.
 
+## How to use?
+--
+
+Clone this repository:
+
+    git clone https://github.com/iamjaiminpatel/cg-test.git
+
+Remove .git folder since you want to create a new repository
+
+    rm -rf .git
+
+Install dependencies:
+
+    composer install
+    
+Copy ``.env.example`` file:
+
+    cp .env.example .env
+
+Configure ``.env`` file
+
+Generate Application Key
+
+    php artisan key:generate
+
+Run Migration
+
+    php artisan migrate
+
+Start laravel Que:
+
+    php artisan queue:work
+
+
+
+
+## Learning Laravel
+
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
 ## Laravel Sponsors
 
