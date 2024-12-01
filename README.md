@@ -12,7 +12,6 @@
 This project is a web-based application designed to manage albums and users. It features APIs for user authentication, album management, and password recovery. The backend is developed in Laravel, and the project includes database migrations, aws-sdk, serverless deployment and a Mail service for user notifications.
 
 ## How to use?
---
 
 Clone this repository:
 
@@ -44,6 +43,10 @@ Start laravel Que:
 
     php artisan queue:work
 
+
+## API Usage
+
+This application user a RESTFul API. Please Refer to the Swagger UI for detailed API documentation.
 
 
 
